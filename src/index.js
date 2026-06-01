@@ -17,6 +17,7 @@ app.get("/", (req, res) => {
     res.send("Server is running");
 })
 
+// User sends URL to shorten
 app.post("/shorten", (req, res) => {
     const {url} = req.body
     if (!url) {
@@ -30,12 +31,28 @@ app.post("/shorten", (req, res) => {
     url_map[shortCode] = url;
 
     console.log(url_map);
-    
+
     res.json({
         shortCode
     });
 })
 
+
+// Redirecting
+app.get("/:shortCode", (req, res) => {
+    const { shortCode } = req.params;
+    const original_url = url_map[shortCode];
+
+    if (!original_url) {
+        // 404 => Requested resource does not exist
+        return res.status(404).json({
+            message: "Short URL not found"
+        })
+    }
+
+    res.redirect(302, original_url);
+    // 302 is temporarily redirect
+})
 
 
 app.listen(PORT, ()=> {
