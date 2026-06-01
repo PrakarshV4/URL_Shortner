@@ -1,0 +1,9 @@
+brew services list => list all services running currently
+
+brew services start postgresql@17 => start postgress
+
+Connecting to Postgres DB
+- psql postgres
+- \l => list all databases
+- \c database_name => to go inside a database
+- \d table_name => to see schema of a table

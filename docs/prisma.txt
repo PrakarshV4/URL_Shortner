@@ -1,0 +1,75 @@
+PRISMA COMMANDS
+
+1. npx prisma init
+- Initializes Prisma.
+- Creates:
+  - prisma/schema.prisma
+  - prisma.config.ts
+- Run once when setting up Prisma.
+
+------------------------------------------------
+
+2. npx prisma db pull
+- Reads existing database schema.
+- Updates schema.prisma.
+- Database -> Prisma
+
+Use when:
+- Database already exists.
+- Tables were changed manually.
+
+------------------------------------------------
+
+3. npx prisma generate
+- Generates Prisma Client from schema.prisma.
+- Required after:
+  - db pull
+  - schema changes
+
+Use:
+- Creates methods like:
+  prisma.urls.findMany()
+  prisma.urls.create()
+
+------------------------------------------------
+
+4. npx prisma studio
+- Opens GUI for database.
+- View/Edit/Delete rows.
+
+------------------------------------------------
+
+5. npx prisma migrate dev --name <name>
+- Creates migration.
+- Updates database from schema.prisma.
+
+Example:
+npx prisma migrate dev --name add_click_count
+
+------------------------------------------------
+
+6. npx prisma migrate reset
+- Drops all tables.
+- Re-runs migrations.
+- Deletes all data.
+
+------------------------------------------------
+
+7. npx prisma validate
+- Validates schema.prisma.
+
+------------------------------------------------
+
+FLOW USED IN THIS PROJECT
+
+PostgreSQL
+    ↓
+npx prisma db pull
+    ↓
+schema.prisma
+    ↓
+npx prisma generate
+    ↓
+Prisma Client
+    ↓
+Node.js / Express
